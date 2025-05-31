@@ -1,7 +1,7 @@
 {
   "$GMRoom":"v1",
   "%Name":"Room1",
-  "creationCodeFile":"",
+  "creationCodeFile":"rooms/Room1/RoomCreationCode.gml",
   "inheritCode":false,
   "inheritCreationOrder":false,
   "inheritLayers":false,
@@ -67,8 +67,8 @@
   ],
   "name":"Room1",
   "parent":{
-    "name":"Blank Pixel Game",
-    "path":"Blank Pixel Game.yyp",
+    "name":"Rooms",
+    "path":"folders/Rooms.yy",
   },
   "parentRoom":null,
   "physicsSettings":{
