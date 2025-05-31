@@ -2,54 +2,52 @@
 
 if (hp <= 0) {
     state = "dead";
-    speed = 0; // Stop movement
-    path_end(); // Stop path
+    speed = 0;
+    path_end();
     //death_timer = death_duration; // Start death timer
     // Optional: Play death animation or effect
     // sprite_index = spr_enemy_death; // Uncomment if you have a death sprite
     // audio_play_sound(snd_enemy_die, 10, false); // Uncomment if you have a sound
     instance_destroy();
-	exit; // Skip other logic
+	exit;
 }
+
 
 if (instance_exists(oPlayer)) {
     var dist_to_player = point_distance(x, y, oPlayer.x, oPlayer.y);
-    
-    // State machine
     switch (state) {
         case "patrol":
-            // Check if player is in range
             if (dist_to_player < chase_range) {
                 state = "chase";
-                path_end(); // Stop the path when chasing
-            }
-            // Face the direction of movement (optional)
-            if (path_speed != 0) {
-                image_angle = point_direction(xprevious, yprevious, x, y);
-            }
+                path_end();
+			}
+			
+			show_debug_message(self.hspeed)
+            
             break;
             
         case "chase":
-            // Check if player is out of chase range
             if (dist_to_player > chase_range) {
-                // Return to patrolling
                 state = "patrol";
                 path_start(path_enemy_patrol, patrol_speed, path_action_restart, false);
             } else {
-                // Face the player
-                //image_angle = point_direction(x, y, oPlayer.x, oPlayer.y);
-                
-                // Move toward the player only if farther than stop_distance
                 if (dist_to_player > stop_distance) {
-                    move_towards_point(oPlayer.x, oPlayer.y, chase_speed);
+					if (object_index == oEnemyTank) {
+						move_towards_point(oPlayer.x, oPlayer.y, oEnemyFast.patrol_speed);
+					} else if (object_index == oEnemyFast) {
+						move_towards_point(oPlayer.x, oPlayer.y, chase_speed);
+					} else {
+						speed = 0
+					}
                 } else {
-                    speed = 0; // Stop moving if too close
+                    with oPlayer {
+						oPlayer.hp -= 5
+					}
                 }
             }
             break;
     }
 } else {
-    // If no player, stay in patrol state
     if (state != "patrol") {
         state = "patrol";
         path_start(path_enemy_patrol, patrol_speed, path_action_restart, false);

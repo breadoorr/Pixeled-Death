@@ -1,12 +1,12 @@
 {
   "$GMObject":"",
-  "%Name":"oEnemy",
+  "%Name":"oEnemyFast",
   "eventList":[
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":3,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
-  "name":"oEnemy",
+  "name":"oEnemyFast",
   "overriddenProperties":[],
   "parent":{
     "name":"Objects",
@@ -31,8 +31,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"sEnemy",
-    "path":"sprites/sEnemy/sEnemy.yy",
+    "name":"FUCKIN_EYE",
+    "path":"sprites/FUCKIN_EYE/FUCKIN_EYE.yy",
   },
   "spriteMaskId":null,
   "visible":true,
