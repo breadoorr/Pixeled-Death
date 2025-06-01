@@ -1,0 +1,1 @@
+global.dialogue_ind = 0

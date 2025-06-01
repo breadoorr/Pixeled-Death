@@ -1,24 +1,22 @@
-xSpeed = 0;
-ySpeed = 0;
+A = keyboard_check(ord("A"))
+D = keyboard_check(ord("D"))
+W = keyboard_check(ord("W"))
+S = keyboard_check(ord("S"))
 
-if (keyboard_check(ord("W"))) {
-    xSpeed += lengthdir_x(move_speed, image_angle + 90);
-    ySpeed += lengthdir_y(move_speed, image_angle + 90);
-	
-}
-if (keyboard_check(ord("S"))) {
-    xSpeed += lengthdir_x(move_speed, image_angle - 90);
-    ySpeed += lengthdir_y(move_speed, image_angle - 90);
-}
-if (keyboard_check(ord("A"))) {
-    xSpeed += lengthdir_x(move_speed, image_angle + 180);
-    ySpeed += lengthdir_y(move_speed, image_angle + 180);
-	image_xscale = -1
-}
-if (keyboard_check(ord("D"))) {
-    xSpeed += lengthdir_x(move_speed, image_angle);
-    ySpeed += lengthdir_y(move_speed, image_angle);
-	image_xscale = 1
+
+
+X = D-A
+Y = S-W
+
+if(X != 0 || Y != 0){
+	if (!place_meeting(x + spd * X, y, oWall) && !place_meeting(x + spd * X, y, [oEnemyFast, oEnemyTank, oEnemyShoot])) {
+        x += spd * X;
+    }
+    if (!place_meeting(x, y + spd * Y, oWall) && !place_meeting(x, y + spd * Y, [oEnemyFast, oEnemyTank, oEnemyShoot])) {
+        y += spd * Y;
+    }
+  //x += spd * X
+  //y += spd * Y
 }
 
 if (keyboard_check_pressed(vk_control)) {
@@ -34,7 +32,7 @@ if (mouse_check_button_released(mb_left)) {
 
 if (instance_exists(oEnemyFast)) {
     with (oEnemyFast) {
-        if (point_distance(x, y, other.x, other.y) < 30 && other.atk) {
+        if (point_distance(x, y, other.x, other.y) < 50 && other.atk) {
             hp -= 5;
         }
     }
@@ -45,4 +43,35 @@ if (!inv) {
 } else {
     x += xSpeed;
     y += ySpeed;
+}
+
+show_debug_message(state)
+
+if (attacked_timer > 0) {
+	image_blend = c_fuchsia;
+	//kb_dir = 0;
+    attacked_timer--;
+    if (attacked_timer <= 0) {
+        state = "normal";
+    }
+}
+
+if (kb_spd > 0) {
+    var _xmove = lengthdir_x(kb_spd, kb_dir);
+    var _ymove = lengthdir_y(kb_spd, kb_dir);
+    
+    // Check collision with walls and enemies
+    if (!place_meeting(x + _xmove, y, oWall) && !place_meeting(x + _xmove, y, [oEnemyFast, oEnemyTank, oEnemyShoot])) {
+        x += _xmove;
+    }
+    if (!place_meeting(x, y + _ymove, oWall) && !place_meeting(x, y + _ymove, [oEnemyFast, oEnemyTank, oEnemyShoot])) {
+        y += _ymove;
+    }
+    
+    kb_spd -= 0.5;
+    if (kb_spd < 0) kb_spd = 0;
+}
+
+if (hp <= 0) {
+	room_goto(RoomDead)
 }

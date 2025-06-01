@@ -1,1 +1,3 @@
-room_goto(1)
+if (room == Room2) {
+	room_goto(RoomD)
+}

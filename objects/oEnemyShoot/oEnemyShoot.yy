@@ -31,8 +31,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"sEnemy",
-    "path":"sprites/sEnemy/sEnemy.yy",
+    "name":"LONGATACK_MONSTER_WALK",
+    "path":"sprites/LONGATACK_MONSTER_WALK/LONGATACK_MONSTER_WALK.yy",
   },
   "spriteMaskId":null,
   "visible":true,
